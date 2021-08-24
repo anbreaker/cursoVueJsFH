@@ -1,37 +1,28 @@
-
 const miPromesa = () => {
-    return new Promise(( resolve, reject )=> {
-        setTimeout(() => {
-            // resolve('Tenemos un valor en la promesa')
-            reject('REJECT en miPromesa')
-        }, 1000);
-    })
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve("Tenemos un valor en la promesa")
+      reject("REJECT en miPromesa")
+    }, 1000)
+  })
 }
 
+const medirTiempoAsync = async () => {
+  try {
+    console.log("Inicio")
 
-const medirTiempoAsync = async() => {
+    const respuesta = await miPromesa()
+    console.log(respuesta)
 
-    try {
-        console.log('Inicio')
+    console.log("Fin")
 
-        const respuesta = await miPromesa()
-        console.log(respuesta)
-
-        console.log('Fin')
-
-        return 'fin de medir tiempo async'
-
-    } catch (error) {
-        // return 'catch en medirTiempoAsync'
-        throw 'Error en medirTiempoAsync'
-    }
-    
+    return "fin de medir tiempo async"
+  } catch (error) {
+    // return 'catch en medirTiempoAsync'
+    throw "Error en medirTiempoAsync, se lanzó REJECT en miPromesa"
+  }
 }
-
 
 medirTiempoAsync()
-    .then( valor => console.log( 'THEN Exitoso:', valor  ) )
-    .catch( err => console.log( 'Error:', err ))
-
-
-
+  .then((valor) => console.log("THEN Exitoso:", valor))
+  .catch((err) => console.log("Error:", err))

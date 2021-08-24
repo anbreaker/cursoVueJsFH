@@ -1,15 +1,11 @@
+let firstName
+let lastName = "anbreaker"
 
-
-
-let firstName;
-let lastName = 'Herrera';
-
-
-// console.log(`${ firstName || 'No firstName' } ${ lastName || 'No lastName' }`)
+console.log(`${ firstName || 'No firstName' } ${ lastName || 'No lastName' }`)
 
 const isActive = true
 
-const message = ( isActive ) ? 'Activo' : 'Inactivo'
+const message = isActive ? "Activo" : "Inactivo"
 
 // if ( isActive ) {
 //     message = 'Activo'
@@ -18,8 +14,3 @@ const message = ( isActive ) ? 'Activo' : 'Inactivo'
 // }
 
 console.log(message)
-
-
-
-
-

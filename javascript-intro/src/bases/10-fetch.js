@@ -1,20 +1,34 @@
+const apiKey = "YQnG8xqCyq2shbGATEpCX95u0Kb5biNc"
+const link = "https://api.giphy.com/v1/gifs/random?api_key"
 
+// With Promises
+fetch(`${link}=${apiKey}`)
+  .then((resp) => resp.json())
+  .then(({ data }) => {
+    const { url } = data.images.original
 
-const apiKey = 'YQnG8xqCyq2shbGATEpCX95u0Kb5biNc'
-// https://api.giphy.com/v1/gifs/random?api_key=YQnG8xqCyq2shbGATEpCX95u0Kb5biNc
+    const img = document.createElement("img")
+    img.src = url
 
+    document.body.append(img)
+  })
 
-fetch(`https://api.giphy.com/v1/gifs/random?api_key=${ apiKey }`)
-    .then( resp => resp.json() )
-    .then(({ data })=> {
-        const { url } = data.images.original
+// With async await
+const fetchGiphy = async () => {
+  try {
+    let response = await fetch(`${link}=${apiKey}`)
+    response = await response.json()
 
-        
-        const img = document.createElement('img')
-        img.src = url
+    const { data } = response
+    const { url } = data.images.original
 
-        document.body.append( img )
+    const img = document.createElement("img")
+    img.src = url
+    document.body.append(img)
+  } catch (error) {
+    console.log("Error en la petición", error)
+    throw error
+  }
+}
 
-    })
-
-
+fetchGiphy()

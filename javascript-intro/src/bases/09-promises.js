@@ -1,4 +1,4 @@
-import { getHeroById } from './bases/08-imp-exp'
+import { getHeroById } from "./08-import-export"
 
 // console.log('Inicio')
 // new Promise( (resolve, reject) => {
@@ -10,30 +10,20 @@ import { getHeroById } from './bases/08-imp-exp'
 
 // console.log('Fin')
 
-
 const getHeroByIdAsync = (id) => {
-    return new Promise( ( resolve, reject )=> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const hero = getHeroById(id)
 
-        setTimeout(() => {
-           
-            const hero = getHeroById( id )
-
-            if ( hero ) {
-                resolve( hero )
-            } else {
-                reject('Heroe no existe')
-            }
-
-        }, 1000);
-
-    });
+      if (hero) {
+        resolve(hero)
+      } else {
+        reject("Heroe no existe")
+      }
+    }, 1000)
+  })
 }
 
-
-
 getHeroByIdAsync(3)
-    .then( h => {
-        console.log(`El héroe es: ${ h.name }`)
-    })
-    .catch( console.log )
-
+  .then((h) => console.log(`El héroe es: ${h.name}`))
+  .catch(console.log)
