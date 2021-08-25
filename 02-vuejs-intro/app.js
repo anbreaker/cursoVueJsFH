@@ -44,6 +44,12 @@ const app = Vue.createApp({
   },
 
   methods: {
+    addQuote() {
+      this.quotes.unshift({
+        quote: this.newQuote,
+      })
+    },
+
     changeQuote() {
       console.log("Hola Mundo")
       this.author = "anbreaker"

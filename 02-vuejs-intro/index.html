@@ -11,8 +11,10 @@
     <div id="app">
       <h1>Batman quotes:</h1>
 
-      <input type="text" />
+      <input type="text" v-model="newQuote" v-on:keypress.enter="addQuote" />
+      <p>{{ newQuote }}</p>
       <hr />
+
       <ul v-for="({quote,author}, idx) in quotes" :key="idx">
         <li>
           <span>{{ idx }}- {{ author }}</span>
