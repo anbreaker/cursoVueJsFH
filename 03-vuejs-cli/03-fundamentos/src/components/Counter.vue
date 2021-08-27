@@ -22,6 +22,9 @@ export default {
       type: Number,
       default: 10,
       // required: true
+      validator (value){
+        return value > 100
+      }
     }
   },
   data() {
