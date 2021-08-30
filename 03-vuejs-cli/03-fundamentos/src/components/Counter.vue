@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>{{ title || customTitle }}</h1>
-
     <h4>{{ counter }} <sup>2</sup> = {{ squareCounter }}</h4>
 
     <div>
@@ -22,8 +21,8 @@ export default {
       type: Number,
       default: 10,
       // required: true
-      validator (value){
-        return value > 100
+      validator(value) {
+        return value > 100;
       }
     }
   },
