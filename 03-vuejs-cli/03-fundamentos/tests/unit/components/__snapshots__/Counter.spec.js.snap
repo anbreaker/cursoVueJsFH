@@ -2,8 +2,12 @@
 
 exports[`Counter Component should be match with the snapshot 1`] = `
 <div>
-  <h1>Custom Counter</h1>
-  <h4>10 <sup>2</sup> = 100</h4>
+  <h2>Custom Counter</h2>
+  <p>
+    100
+    <sup>2</sup>
+    = 10000
+  </p>
   <div><button>+1</button> <button>-1</button></div>
 </div>
 `;

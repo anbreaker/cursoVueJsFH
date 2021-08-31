@@ -1,20 +1,21 @@
-import { shallowMount, mount } from "@vue/test-utils"
+import { shallowMount, mount } from '@vue/test-utils';
 
-import Counter from "@/components/Counter"
+import Counter from '@/components/Counter';
 
-describe("Counter Component", () => {
-  /*
-  test("should be match with the snapshot", () => {
-    const wrapper = shallowMount(Counter)
+describe('Counter Component', () => {
+  // test('should be match with the snapshot', () => {
+  //   const wrapper = shallowMount(Counter);
 
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-*/
+  //   expect(wrapper.html()).toMatchSnapshot();
+  // });
 
   test('should have the default value "Counter"', () => {
-    const wrapper = shallowMount(Counter)
+    const wrapper = shallowMount(Counter);
 
-    const h2 = wrapper.find("h1")
-    console.log(h2)
-  })
-})
+    expect(wrapper.find('h2').exists()).toBe(true);
+
+    const h2Value = wrapper.find('h2').text();
+
+    expect(h2Value).toBe('Custom Counter');
+  });
+});
