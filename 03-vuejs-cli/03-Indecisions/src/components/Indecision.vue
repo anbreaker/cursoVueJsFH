@@ -81,12 +81,6 @@ input:focus {
   outline: none;
 }
 
-p {
-  color: white;
-  font-size: 20px;
-  margin-top: 0px;
-}
-
 h1,
 h2,
 h3 {
