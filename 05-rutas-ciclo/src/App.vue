@@ -1,9 +1,24 @@
 <template>
   <div>
+    <Navbar />
     <img src="./assets/logo.png" alt="" />
     <router-view />
   </div>
 </template>
+
+<script>
+import { defineAsyncComponent } from "@vue/runtime-core";
+
+export default {
+  components: {
+    Navbar: defineAsyncComponent(() =>
+      import(
+        /* webpackChunkName: "Navbar" */ "@/modules/shared/components/Navbar"
+      )
+    )
+  }
+};
+</script>
 
 <style>
 body {
