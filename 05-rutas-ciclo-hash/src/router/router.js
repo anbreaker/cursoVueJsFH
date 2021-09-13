@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 
+import isAuthenticatedGuard from "./authGuard"
+
 // Pokemon
 const listPage = () =>
   import(/* webpackChunkName: "ListPage" */ "../modules/pokemon/pages/ListPage")
@@ -63,6 +65,7 @@ const routes = [
 
   {
     name: "dbz",
+    beforeEnter: [isAuthenticatedGuard],
     component: dbzLayout,
     path: "/dbz",
     children: [
