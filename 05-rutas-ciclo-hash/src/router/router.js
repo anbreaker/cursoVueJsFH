@@ -96,19 +96,42 @@ const router = createRouter({
 })
 
 // Guard Global - Síncrono
-router.beforeEach((to, from, next) => {
-  console.log({ to, from, next })
 
-  const random = Math.random() * 100
+// router.beforeEach((to, from, next) => {
+//   console.log({ to, from, next })
 
-  if (random > 50) {
-    console.log("Autenticado")
+//   const random = Math.random() * 100
 
-    next()
-  } else {
-    console.log(random, "Blocked! by beforeEach Guard!")
-    next({ name: "pokemon-home" })
-  }
+//   if (random > 50) {
+//     console.log("Autenticado")
+
+//     next()
+//   } else {
+//     console.log(random, "Blocked! by beforeEach Guard!")
+//     next({ name: "pokemon-home" })
+//   }
+// })
+
+// Guard Global - Asíncrono
+
+const canAccess = () => {
+  return new Promise((resolve) => {
+    const random = Math.random() * 100
+    if (random > 50) {
+      console.log("Autenticado - Async!")
+
+      resolve(true)
+    } else {
+      console.log(random, "Blocked! by beforeEach Guard! - Async")
+      resolve(false)
+    }
+  })
+}
+
+router.beforeEach(async (to, from, next) => {
+  const authorize = await canAccess()
+
+  authorize ? next() : next({ name: "pokemon-home" })
 })
 
 export default router
