@@ -17,7 +17,7 @@ describe('Counter Component', () => {
   });
 
   test('el valor por defecto debe de ser 100 en el p', async () => {
-    wrapper = shallowMount(Counter);
+    const wrapper = shallowMount(Counter);
     // const pTags = wrapper.findAll('p')
 
     // expect segundo p === 100
@@ -26,5 +26,22 @@ describe('Counter Component', () => {
     const value = wrapper.find('[data-testid="counter"]').text();
 
     expect(value).toBe('100');
+  });
+
+  test('debe incrementar y decrementar el contador', async () => {
+    const wrapper = shallowMount(Counter);
+
+    const increaseBtn = wrapper.find('button');
+
+    await increaseBtn.trigger('click');
+    let value = wrapper.find('[data-testid="counter"]').text();
+    expect(value).toBe('101');
+
+    const decreaseBtn = wrapper.findAll('button')[1];
+
+    await decreaseBtn.trigger('click');
+    await decreaseBtn.trigger('click');
+    value = wrapper.find('[data-testid="counter"]').text();
+    expect(value).toBe('99');
   });
 });
