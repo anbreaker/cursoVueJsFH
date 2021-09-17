@@ -4,8 +4,8 @@
     <h2>Direct Access: {{ $store.state.count }}</h2>
     <h2>Count Computed: {{ countComputed }}</h2>
 
-    <button>+1</button>
-    <button>+5</button>
+    <button @click="increment">+1</button>
+    <button @click="incrementBy(15)">+5</button>
     <button>Random</button>
     <hr />
     <h1>mapState - Vuex</h1>
@@ -28,6 +28,16 @@ export default {
       count: state => state.count,
       lastMutation: state => state.lastMutation
     })
+  },
+
+  methods: {
+    increment() {
+      this.$store.commit("increment");
+    },
+
+    incrementBy(payload) {
+      this.$store.commit("incrementBy", payload);
+    }
   }
 };
 </script>
