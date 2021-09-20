@@ -1,19 +1,9 @@
 import { createStore } from "vuex"
 
-export default createStore({
-  state: {
-    count: 1,
-    lastMutation: "none",
-  },
+import counterStore from "./counter/counter"
 
-  mutations: {
-    increment(state) {
-      state.count++
-      state.lastMutation = "increment"
-    },
-    incrementBy(state, payload) {
-      state.count += payload
-      state.lastMutation = "incrementBy"
-    },
+export default createStore({
+  modules: {
+    counter: counterStore,
   },
 })
