@@ -1,13 +1,18 @@
 <template>
-  <div>
-    <button class="btn btn-primary">
-      <i class="fa fa-2x fa-plus"></i>
-    </button>
-  </div>
+  <button class="btn btn-primary">
+    <i class="fa fa-2x" :class="icon"></i>
+  </button>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    icon: {
+      type: String,
+      default: "fa-plus"
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="nav bg-primary">
+  <nav class="nav-flex nav bg-primary">
+    <div class="nav-flex__right">
       <a class="navbar-brand text-white">
         <img
           src="@/assets/logo.png"
@@ -10,12 +10,23 @@
         />
         Daybook
       </a>
+    </div>
 
-      <div class="d-flex">
-        <button class="btn btn-outline-info mx-2">
-          <i class="fa fa-sign-out-alt"></i>
-        </button>
-      </div>
-    </nav>
-  </div>
+    <div>
+      <button class="btn btn-outline-info mx-2">
+        <i class="fa fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </nav>
 </template>
+
+<style scoped>
+.nav-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-flex__right {
+  flex-grow: 1;
+}
+</style>

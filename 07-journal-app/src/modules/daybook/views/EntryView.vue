@@ -23,11 +23,44 @@
   <div class="d-flex flex-column px-3 h-75">
     <textarea placeholder="what happened today?"></textarea>
   </div>
+
+  <FloatingActionButton icon="fa-save"></FloatingActionButton>
+
+  <img
+    src="https://tipsmake.com/data1/thumbs/how-to-extract-img-files-in-windows-10-thumb-bzxI4IDgg.jpg"
+    alt="Entry Picture"
+    class="img-thumbnail"
+  />
 </template>
 
 <script>
-export default {};
+import { defineAsyncComponent } from "@vue/runtime-core";
+
+export default {
+  components: {
+    FloatingActionButton: defineAsyncComponent(() =>
+      import("../components/FloatingActionButton.vue")
+    )
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+textarea {
+  font-size: 20px;
+  border: none;
+  height: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+img {
+  width: 200px;
+  position: fixed;
+  bottom: 150px;
+  right: 20px;
+  box-shadow: 0px 5px 10px rgba($color: #000000, $alpha: 0.2);
+}
 </style>
