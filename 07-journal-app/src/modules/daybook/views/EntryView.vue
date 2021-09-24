@@ -35,12 +35,35 @@
 
 <script>
 import { defineAsyncComponent } from "@vue/runtime-core";
+import { mapGetters } from "vuex";
 
 export default {
+  name: "EntryView",
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
   components: {
     FloatingActionButton: defineAsyncComponent(() =>
       import("../components/FloatingActionButton.vue")
     )
+  },
+  methods: {
+    loadEntry() {
+      const entry = this.getEntryById(this.id);
+      console.log(entry);
+    }
+  },
+
+  computed: {
+    ...mapGetters("journal", ["getEntryById"])
+  },
+  created() {
+    // console.log(this.$route.params.id)
+    console.log(this.loadEntry(), "<--");
   }
 };
 </script>
