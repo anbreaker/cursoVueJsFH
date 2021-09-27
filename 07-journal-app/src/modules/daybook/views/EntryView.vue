@@ -1,28 +1,31 @@
 <template>
-  <div class="entry-title d-flex justify-content-between p-2">
-    <div>
-      <span class="text-success fs-3 fw-bold">15</span>
-      <span class="mx-1 fs-3">September</span>
-      <span class="mx-2 fs-4 fw-light">21</span>
+  <template v-if="entry">
+    <div class="entry-title d-flex justify-content-between p-2">
+      <div>
+        <span class="text-success fs-3 fw-bold">{{ dayMonthYear.day }}</span>
+        <span class="mx-1 fs-3">{{ dayMonthYear.month }}</span>
+        <span class="mx-2 fs-4 fw-light">{{ dayMonthYear.yearDay }}</span>
+      </div>
+
+      <div>
+        <button class="btn btn-danger mx-2">
+          Delete
+          <i class="fa fa-trash-alt"></i>
+        </button>
+        <button class="btn btn-primary">
+          Update Image
+          <i class="fa fa-upload"></i>
+        </button>
+      </div>
     </div>
 
-    <div>
-      <button class="btn btn-danger mx-2">
-        Delete
-        <i class="fa fa-trash-alt"></i>
-      </button>
-      <button class="btn btn-primary">
-        Update Image
-        <i class="fa fa-upload"></i>
-      </button>
+    <hr />
+
+    <div class="d-flex flex-column px-3 h-75">
+      <textarea placeholder="what happened today?" v-model="entry.text">
+      </textarea>
     </div>
-  </div>
-
-  <hr />
-
-  <div class="d-flex flex-column px-3 h-75">
-    <textarea placeholder="what happened today?"></textarea>
-  </div>
+  </template>
 
   <FloatingActionButton icon="fa-save"></FloatingActionButton>
 
@@ -37,6 +40,8 @@
 import { defineAsyncComponent } from "@vue/runtime-core";
 import { mapGetters } from "vuex";
 
+import getMonthYear from "../helpers/getDayMonthYear";
+
 export default {
   name: "EntryView",
   props: {
@@ -44,6 +49,12 @@ export default {
       type: String,
       required: true
     }
+  },
+
+  data() {
+    return {
+      entry: null
+    };
   },
 
   components: {
@@ -54,16 +65,31 @@ export default {
   methods: {
     loadEntry() {
       const entry = this.getEntryById(this.id);
-      console.log(entry);
+
+      if (!entry) return this.$router.push({ name: "no-entry" });
+
+      this.entry = entry;
     }
   },
 
   computed: {
-    ...mapGetters("journal", ["getEntryById"])
+    ...mapGetters("journal", ["getEntryById"]),
+
+    dayMonthYear() {
+      const { day, month, yearDay } = getMonthYear(this.entry.date);
+
+      return { day, month, yearDay };
+    }
   },
   created() {
     // console.log(this.$route.params.id)
-    console.log(this.loadEntry(), "<--");
+    this.loadEntry();
+  },
+
+  watch: {
+    id() {
+      this.loadEntry();
+    }
   }
 };
 </script>
