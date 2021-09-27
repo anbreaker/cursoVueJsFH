@@ -27,7 +27,7 @@
     </div>
   </template>
 
-  <FloatingActionButton icon="fa-save"></FloatingActionButton>
+  <FloatingActionButton icon="fa-save" @on:click="saveEntry" />
 
   <img
     src="https://tipsmake.com/data1/thumbs/how-to-extract-img-files-in-windows-10-thumb-bzxI4IDgg.jpg"
@@ -38,7 +38,7 @@
 
 <script>
 import { defineAsyncComponent } from "@vue/runtime-core";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import getMonthYear from "../helpers/getDayMonthYear";
 
@@ -51,18 +51,29 @@ export default {
     }
   },
 
+  components: {
+    FloatingActionButton: defineAsyncComponent(() =>
+      import("../components/FloatingActionButton.vue")
+    )
+  },
+
   data() {
     return {
       entry: null
     };
   },
 
-  components: {
-    FloatingActionButton: defineAsyncComponent(() =>
-      import("../components/FloatingActionButton.vue")
-    )
-  },
   methods: {
+    ...mapActions("journal", ["updateEntry"]),
+
+    async saveEntry() {
+      console.log("Save entry...");
+
+      // dispacht action Journal Module
+      // console.log(this.entry);
+      this.updateEntry(this.entry);
+    },
+
     loadEntry() {
       const entry = this.getEntryById(this.id);
 
@@ -81,15 +92,16 @@ export default {
       return { day, month, yearDay };
     }
   },
-  created() {
-    // console.log(this.$route.params.id)
-    this.loadEntry();
-  },
 
   watch: {
     id() {
       this.loadEntry();
     }
+  },
+
+  created() {
+    // console.log(this.$route.params.id)
+    this.loadEntry();
   }
 };
 </script>
