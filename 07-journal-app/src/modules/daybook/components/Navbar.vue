@@ -1,14 +1,17 @@
 <template>
   <nav class="nav-flex nav bg-primary">
     <div class="nav-flex__right">
-      <a class="navbar-brand text-white">
+      <a class="navbar-brand text-white pointer">
         <img
           src="@/assets/logo.png"
           alt="Vue logo"
           class="d-inline-block align-text-top mx-2"
           height="24"
+          @click="$router.push({ name: 'Home' })"
         />
-        Daybook
+        <span class="pointer" @click="$router.push({ name: 'no-entry' })"
+          >Daybook</span
+        >
       </a>
     </div>
 
@@ -28,5 +31,9 @@
 
 .nav-flex__right {
   flex-grow: 1;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>

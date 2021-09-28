@@ -14,6 +14,7 @@ export const updateEntry = (state, entry) => {
   state.entries[idx] = entry
 }
 
-export const addentry = (/* state */) => {
-  //
+export const addEntry = (state, entry) => {
+  // state -> entries -> la nueva entrada al inicio del array
+  state.entries = [entry, ...state.entries]
 }

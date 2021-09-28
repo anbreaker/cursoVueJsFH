@@ -9,6 +9,17 @@
       />
     </div>
 
+    <div class="mt-2">
+      <button
+        class="btn btn-primary mb-2 mx-3"
+        @click="$router.push({ name: 'entry', params: { id: 'new' } })"
+        style="width: -webkit-fill-available"
+      >
+        <i class="fa fa-plus-circle"></i>
+        New Entry
+      </button>
+    </div>
+
     <div class="entry-scrollarea">
       <Entry v-for="entry in entriesByTerm" :key="entry.id" :entry="entry">
       </Entry>
