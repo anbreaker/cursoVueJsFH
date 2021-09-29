@@ -8,7 +8,11 @@
       </div>
 
       <div>
-        <button class="btn btn-danger mx-2">
+        <button
+          v-if="entry.id"
+          class="btn btn-danger mx-2"
+          @click="onDeleteEntry"
+        >
           Delete
           <i class="fa fa-trash-alt"></i>
         </button>
@@ -64,7 +68,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("journal", ["updateEntry", "createEntry"]),
+    ...mapActions("journal", ["updateEntry", "createEntry", "deleteEntry"]),
 
     async saveEntry() {
       if (this.entry.id) {
@@ -93,6 +97,12 @@ export default {
       }
 
       this.entry = entry;
+    },
+
+    async onDeleteEntry() {
+      this.deleteEntry(this.entry.id);
+
+      this.$router.push({ name: "no-entry" });
     }
   },
 

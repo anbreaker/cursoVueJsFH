@@ -18,3 +18,7 @@ export const addEntry = (state, entry) => {
   // state -> entries -> la nueva entrada al inicio del array
   state.entries = [entry, ...state.entries]
 }
+
+export const deleteEntry = (state, id) => {
+  state.entries = state.entries.filter((entry) => entry.id !== id)
+}
