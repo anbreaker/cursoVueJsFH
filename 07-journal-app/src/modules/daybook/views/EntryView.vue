@@ -7,6 +7,14 @@
         <span class="mx-2 fs-4 fw-light">{{ dayMonthYear.yearDay }}</span>
       </div>
 
+      <input
+        type="file"
+        @change="onSelectedImage"
+        accept="image/png, image/jpeg, image/jpg"
+        v-show="false"
+        ref="imageSelector"
+      />
+
       <div>
         <button
           v-if="entry.id"
@@ -16,7 +24,7 @@
           Delete
           <i class="fa fa-trash-alt"></i>
         </button>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="onSelectImage">
           Update Image
           <i class="fa fa-upload"></i>
         </button>
@@ -33,14 +41,22 @@
 
   <FloatingActionButton icon="fa-save" @on:click="saveEntry" />
 
-  <img
+  <!-- <img
     src="https://tipsmake.com/data1/thumbs/how-to-extract-img-files-in-windows-10-thumb-bzxI4IDgg.jpg"
+    alt="Entry Picture"
+    class="img-thumbnail"
+  /> -->
+  <img
+    v-if="localImage"
+    :src="localImage"
     alt="Entry Picture"
     class="img-thumbnail"
   />
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 import { defineAsyncComponent } from "@vue/runtime-core";
 import { mapActions, mapGetters } from "vuex";
 
@@ -63,25 +79,14 @@ export default {
 
   data() {
     return {
-      entry: null
+      entry: null,
+      localImage: null,
+      file: null
     };
   },
 
   methods: {
     ...mapActions("journal", ["updateEntry", "createEntry", "deleteEntry"]),
-
-    async saveEntry() {
-      if (this.entry.id) {
-        // Updated
-        // Action Journal Module
-        await this.updateEntry(this.entry);
-      } else {
-        const id = await this.createEntry(this.entry);
-
-        console.log({ id });
-        this.$router.push({ name: "entry", params: { id } });
-      }
-    },
 
     loadEntry() {
       let entry;
@@ -99,10 +104,68 @@ export default {
       this.entry = entry;
     },
 
-    async onDeleteEntry() {
-      this.deleteEntry(this.entry.id);
+    async saveEntry() {
+      new Swal({
+        title: "Please Wait...",
+        allowOutsideClick: false
+      });
 
-      this.$router.push({ name: "no-entry" });
+      Swal.showLoading();
+
+      if (this.entry.id) {
+        // Updated Action Journal Module
+        await this.updateEntry(this.entry);
+      } else {
+        const id = await this.createEntry(this.entry);
+
+        this.$router.push({ name: "entry", params: { id } });
+      }
+
+      Swal.fire("Saved", "Successfully saved entry", "success");
+    },
+
+    async onDeleteEntry() {
+      const { isConfirmed } = await Swal.fire({
+        title: "Are you sure?",
+        text: "Once deleted you will not be able to recover it.",
+        showDenyButton: true,
+        confirmButtonText: "Yes, I am sure"
+      });
+
+      if (isConfirmed) {
+        new Swal({
+          title: "Please Wait...",
+          allowOutsideClick: false
+        });
+
+        Swal.showLoading();
+
+        this.deleteEntry(this.entry.id);
+
+        this.$router.push({ name: "no-entry" });
+
+        Swal.fire("Deleted", "", "success");
+      }
+    },
+
+    onSelectedImage(event) {
+      const file = event.target.files[0];
+
+      if (!file) {
+        this.localImage = null;
+        this.file = null;
+        return;
+      }
+
+      this.file = file;
+
+      const fr = new FileReader();
+      fr.onload = () => (this.localImage = fr.result);
+      fr.readAsDataURL(file);
+    },
+
+    onSelectImage() {
+      this.$refs.imageSelector.click();
     }
   },
 
