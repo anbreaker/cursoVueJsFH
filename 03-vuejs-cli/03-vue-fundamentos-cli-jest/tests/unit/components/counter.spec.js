@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import Counter from '@/components/Counter';
+import { convertCompilerOptionsFromJson } from 'typescript';
 
 describe('Counter Component', () => {
   let wrapper;
@@ -41,5 +42,21 @@ describe('Counter Component', () => {
     const value = wrapper.find('[data-testid="counter"]').text();
 
     expect(value).toBe('101');
+  });
+
+  test('Should set the default value', () => {
+    const { start } = wrapper.props();
+
+    const value = wrapper.find('[data-testid="counter"]').text();
+
+    expect(Number(value)).toBe(start);
+  });
+
+  test('Should display the property "title"', () => {
+    const title = 'Counter Title';
+
+    const wrapper = shallowMount(Counter, { props: { title } });
+
+    expect(wrapper.find('h2').text()).toBe(title);
   });
 });
