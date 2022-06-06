@@ -1,16 +1,15 @@
 <template>
-  <img v-if="img" :src="img" alt="bg" />
-  <div class="bg-dark"></div>
+  <div>
+    <img v-if="img" :src="img" alt="bg" />
+    <div class="bg-dark"></div>
 
-  <div class="indecision-container">
-    <input v-model="question" type="text" placeholder="Hazme una pregunta" />
-    <p>Recuerda terminar con un signo de interrogación (?)</p>
-
-    <div v-if="isValidQuestion">
-      <h2>{{ question }}</h2>
-      <h1>{{ answer }}</h1>
-      <!-- Si!: YES -->
-      <!-- No!: No -->
+    <div class="indecision-container">
+      <input type="text" placeholder="Ask me a Question!" v-model="question" />
+      <h3>Remember to end with a question mark (?).</h3>
+      <div v-if="isValidQuestion">
+        <h2>{{ question }}</h2>
+        <h1>{{ answer }}</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -25,42 +24,46 @@
         isValidQuestion: false,
       };
     },
+
     methods: {
       async getAnswer() {
         try {
-          this.answer = 'Pensando...';
-          const { answer, image } = await fetch('https://yesno.wtf/api').then((r) =>
-            r.json()
+          const { answer, image } = await fetch('https:/yesno.wtf/api').then((res) =>
+            res.json()
           );
 
-          this.answer = answer === 'yes' ? 'Si!' : 'No!';
+          this.answer = answer;
           this.img = image;
+
+          console.log(answer, image);
         } catch (error) {
-          console.log('IndecisionComponent: ', error);
-          this.answer = 'No se pudo cargar del API';
           this.img = null;
+          this.answer = '404 Not found API';
+
+          console.log('IndecisionComponent: ', error);
         }
       },
     },
+
     watch: {
-      question(value, oldValue) {
+      question(newValue) {
         this.isValidQuestion = false;
 
-        console.log({ value });
+        console.log({ newValue });
 
-        if (!value.includes('?')) return;
+        if (!newValue.includes('?')) return;
+
+        console.log({ newValue });
 
         this.isValidQuestion = true;
-        console.log({ value });
 
-        // TODO: Realizar petición http
         this.getAnswer();
       },
     },
   };
 </script>
 
-<style>
+<style scoped>
   img,
   .bg-dark {
     height: 100vh;
@@ -87,18 +90,14 @@
     border-radius: 5px;
     border: none;
   }
+
   input:focus {
     outline: none;
   }
 
-  p {
-    color: white;
-    font-size: 20px;
-    margin-top: 0px;
-  }
-
   h1,
-  h2 {
+  h2,
+  h3 {
     color: white;
   }
 
