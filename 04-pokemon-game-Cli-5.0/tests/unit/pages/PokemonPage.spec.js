@@ -42,28 +42,28 @@ describe('PokemonPage Component', () => {
   })
 
   // TODO this test is not working
-  // test('Must show the components PokemonPicture and PokemonOptions', () => {
-  //   const wrapper = shallowMount(PokemonPage, {
-  //     data() {
-  //       return {
-  //         pokemonArr: pokemonArr,
-  //         pokemon: pokemonArr[0],
-  //         showPokemon: false,
-  //         showAnswer: false,
-  //         message: '',
-  //       }
-  //     },
-  //   })
+  test('Must show the components PokemonPicture and PokemonOptions', () => {
+    const wrapper = shallowMount(PokemonPage, {
+      data() {
+        return {
+          pokemonArr: pokemonArr,
+          pokemon: pokemonArr[0],
+          showPokemon: false,
+          showAnswer: false,
+          message: '',
+        }
+      },
+    })
 
-  //   const picture = wrapper.find('pokemonpicture-stub')
-  //   const options = wrapper.find('pokemonoptions-stub')
+    const picture = wrapper.find('pokemonpicture-stub')
+    const options = wrapper.find('pokemonoptions-stub')
 
-  //   expect(picture.exists()).toBeTruthy()
-  //   expect(options.exists()).toBeTruthy()
+    expect(picture.exists()).toBeTruthy()
+    expect(options.exists()).toBeTruthy()
 
-  //   expect(picture.attributes('pokemonid')).toBe('5')
-  //   expect(options.attributes('pokemons')).toBeTruthy()
-  // })
+    expect(picture.attributes('pokemonid')).toBe('5')
+    expect(options.attributes('pokemons')).toBeTruthy()
+  })
 
   test('Must show the components PokemonPicture and PokemonOptions', async () => {
     const wrapper = shallowMount(PokemonPage, {
