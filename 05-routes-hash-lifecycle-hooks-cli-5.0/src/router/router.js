@@ -1,98 +1,137 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
+// Pokemon
+const listPage = () =>
+  import(/* webpackChunkName: "ListPage" */ '../modules/pokemon/pages/ListPage');
+const aboutPage = () =>
+  import(/* webpackChunkName: "AboutPage" */ '../modules/pokemon/pages/AboutPage');
+const pokemonPage = () =>
+  import(/* webpackChunkName: "PokemonPage" */ '../modules/pokemon/pages/PokemonPage');
+const notFound = () =>
+  import(/* webpackChunkName: "NoPageFound" */ '../modules/shared/pages/NotFoundPage');
+const pokemonLayout = () =>
+  import(
+    /*webpackChunkName: "pokemonLayout"*/ '../modules/pokemon/layouts/PokemonLayout'
+  );
+
+// Dragon Ball Z
+
+const dbzLayout = () =>
+  import(/* webpackChunkName: "dbzLayout" */ '../modules/dbz/layouts/DragonBallLayout');
+const dbzAbout = () =>
+  import(/* webpackChunkName: "dbzAbout" */ '../modules/dbz/pages/About');
+const dbzCharacters = () =>
+  import(/* webpackChunkName: "dbzCharacters" */ '../modules/dbz/pages/Characters');
+
 const routes = [
   {
     path: '/',
     redirect: '/pokemon',
   },
+
   {
-    path: '/pokemon',
     name: 'pokemon',
-    component: () =>
-      import(
-        /* webpackChunkName: "PokemonLayout" */ '@/modules/pokemon/layouts/PokemonLayout'
-      ),
+    component: pokemonLayout,
+    path: '/pokemon',
     children: [
       {
-        path: '',
+        component: listPage,
         name: 'pokemon-home',
-        component: () =>
-          import(/* webpackChunkName: "ListPage" */ '@/modules/pokemon/pages/ListPage'),
+        path: 'home',
       },
       {
-        path: 'about',
+        component: aboutPage,
         name: 'pokemon-about',
-        component: () =>
-          import(/* webpackChunkName: "AboutPage" */ '@/modules/pokemon/pages/AboutPage'),
+        path: 'about',
       },
       {
-        path: 'pokemonid/:id',
+        component: pokemonPage,
         name: 'pokemon-id',
-        component: () =>
-          import(
-            /* webpackChunkName: "PokemonPage" */ '@/modules/pokemon/pages/PokemonPage'
-          ),
+        path: 'pokemonid/:id',
         props: (route) => {
           const id = Number(route.params.id);
 
           return isNaN(id) ? { id: 1 } : { id };
         },
       },
-
       {
         path: '',
-        redirect: {
-          name: 'pokemon-about',
-        },
+        redirect: { name: 'pokemon-about' },
       },
     ],
   },
+
+  // DBZ Layout
+
   {
-    // DBZ
-
-    path: '/dbz',
     name: 'dbz',
-    component: () =>
-      import(
-        /* webpackChunkName: "DragonBallLayout" */ '@/modules/dbz/layouts/DragonBallLayout'
-      ),
-
+    component: dbzLayout,
+    path: '/dbz',
     children: [
       {
-        path: 'characters',
-        name: 'dbz-characters',
-        component: () =>
-          import(
-            /* webpackChunkName: "Characters DBZ" */ '@/modules/dbz/pages/Characters'
-          ),
+        component: dbzAbout,
+        name: 'dbz-about',
+        path: 'home',
       },
       {
-        path: 'about',
-        name: 'dbz-about',
-        component: () =>
-          import(/* webpackChunkName: "About DBZ" */ '@/modules/dbz/pages/About'),
+        component: dbzCharacters,
+        name: 'dbz-characters',
+        path: 'characters',
       },
       {
         path: '',
-        redirect: {
-          name: 'dbz-characters',
-        },
+        redirect: { name: 'dbz-characters' },
       },
     ],
   },
 
   {
+    name: 'notFound',
+    component: notFound,
     path: '/:pathMatch(.*)*',
-    component: () =>
-      import(
-        /* webpackChunkName: "NotFoundPage" */ '@/modules/shared/pages/NotFoundPage'
-      ),
   },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+// Guard Global Sync
+/*
+router.beforeEach((to, from, next) => {
+  console.log({ to, from, next });
+
+  const random = Math.random() * 100;
+
+  if (random > 50) {
+    console.log(random, 'Guard Authentication');
+    next();
+  } else {
+    console.log(random, 'Guard Authentication Failed');
+    next({ name: 'pokemon-home' });
+  }
+});
+*/
+
+const canAccess = () => {
+  return new Promise((resolve) => {
+    const random = Math.random() * 100;
+
+    if (random > 50) {
+      console.log(random, 'Authentication - CanAccess');
+      resolve(true);
+    } else {
+      console.log(random, 'Authentication Failed - CanAccess');
+      resolve(false);
+    }
+  });
+};
+
+router.beforeEach(async (to, from, next) => {
+  const authorized = await canAccess();
+
+  authorized ? next() : next({ name: 'pokemon-home' });
 });
 
 export default router;
