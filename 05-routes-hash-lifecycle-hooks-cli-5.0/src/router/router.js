@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
+import { isAuthenticatedGuard } from './auth-guard';
+
 // Pokemon
 const listPage = () =>
   import(/* webpackChunkName: "ListPage" */ '../modules/pokemon/pages/ListPage');
@@ -61,12 +63,13 @@ const routes = [
     ],
   },
 
-  // DBZ Layout
+  // DBZ Layout with Guard
 
   {
-    name: 'dbz',
-    component: dbzLayout,
     path: '/dbz',
+    name: 'dbz',
+    beforeEnter: [isAuthenticatedGuard],
+    component: dbzLayout,
     children: [
       {
         component: dbzAbout,
@@ -114,6 +117,8 @@ router.beforeEach((to, from, next) => {
 });
 */
 
+// Guard Global Async
+/*
 const canAccess = () => {
   return new Promise((resolve) => {
     const random = Math.random() * 100;
@@ -133,5 +138,6 @@ router.beforeEach(async (to, from, next) => {
 
   authorized ? next() : next({ name: 'pokemon-home' });
 });
+*/
 
 export default router;
