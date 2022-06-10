@@ -1,24 +1,57 @@
 <template>
   <div
     class="entry-container mb-3 pointer p-2"
-    @click="$router.push({ name: 'entry', params: { id: 10 } })"
+    @click="$router.push({ name: 'entry', params: { id: entry.id } })"
   >
     <div class="entry-title d-flex">
-      <span class="text-success fs-5 fw-bold">09</span>
-      <span class="mx-1 fs-5">June</span>
-      <span class="mx-2 fw-light">2022, Thursday</span>
+      <span class="text-success fs-5 fw-bold">{{ day }}</span>
+      <span class="mx-2 fs-5">{{ month }}</span>
+      <span class="mx-1 fw-light">{{ yearDay }}</span>
     </div>
 
     <div class="entry-description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio ad itaque voluptatem,
-      exercitationem amet nam hic, neque culpa ex sint aliquid! Dolorum dolore nisi quis
-      eveniet nobis, voluptatum excepturi nostrum.
+      {{ shortText }}
     </div>
   </div>
 </template>
 
 <script>
-  export default {};
+  // prettier-ignore
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  // prettier-ignore
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  export default {
+    props: {
+      entry: {
+        type: Object,
+        required: true,
+      },
+    },
+
+    computed: {
+      shortText() {
+        return this.entry.text.length > 130
+          ? this.entry.text.substring(0, 130) + '...'
+          : this.entry.text;
+      },
+      day() {
+        const date = new Date(this.entry.date);
+
+        return date.getDate();
+      },
+      month() {
+        const date = new Date(this.entry.date);
+
+        return months[date.getMonth()];
+      },
+      yearDay() {
+        const date = new Date(this.entry.date);
+
+        return `${date.getFullYear()}, ${days[date.getDay()]}`;
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +65,10 @@
 
     .entry-description {
       font-size: 0.8rem;
+    }
+
+    .entry-title {
+      align-items: baseline;
     }
   }
 </style>
