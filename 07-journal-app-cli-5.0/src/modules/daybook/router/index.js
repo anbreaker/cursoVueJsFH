@@ -16,6 +16,11 @@ export const dayBookRouter = {
       name: 'entry',
       component: () =>
         import(/* webpackChunkName: "EntryView" */ '@/modules/daybook/views/EntryView'),
+      props: (route) => {
+        return {
+          id: route.params.id,
+        };
+      },
     },
   ],
 };
