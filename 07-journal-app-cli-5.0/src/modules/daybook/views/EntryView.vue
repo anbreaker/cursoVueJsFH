@@ -28,7 +28,7 @@
       ></textarea>
     </div>
 
-    <Fab icon="fa-save" />
+    <Fab icon="fa-save" @on:click="saveEntry" />
 
     <img
       class="img-thumbnail img-position"
@@ -40,7 +40,7 @@
 
 <script>
   import { defineAsyncComponent } from 'vue';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   import { getDayMonthYear } from '../helpers/getDayMonthYear';
 
@@ -77,12 +77,33 @@
     },
 
     methods: {
-      loadEntry() {
-        const entry = this.getEntryById(this.id);
+      ...mapActions('journal', ['updateEntry', 'createEntry']),
 
-        if (!entry) return this.$router.push({ name: 'no-entry' });
+      loadEntry() {
+        let entry;
+
+        if (this.id === 'new') {
+          entry = {
+            text: '',
+            date: new Date().getTime(),
+          };
+        } else {
+          entry = this.getEntryById(this.id);
+
+          if (!entry) return this.$router.push({ name: 'no-entry' });
+        }
 
         this.entry = entry;
+      },
+
+      async saveEntry() {
+        if (this.entry.id) {
+          await this.updateEntry(this.entry);
+        } else {
+          const idNewEntry = await this.createEntry(this.entry);
+
+          this.$router.push({ name: 'entry', params: { id: idNewEntry } });
+        }
       },
     },
 

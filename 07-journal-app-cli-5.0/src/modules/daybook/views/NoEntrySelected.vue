@@ -3,7 +3,7 @@
     <h1 class="align-self-center">Nothing Selected</h1>
   </div>
 
-  <Fab />
+  <Fab @on:click="createNewEntry" />
 </template>
 
 <script>
@@ -13,6 +13,12 @@
     name: 'NoEntrySelected',
     components: {
       Fab: defineAsyncComponent(() => import('../components/Fab')),
+    },
+
+    methods: {
+      createNewEntry() {
+        this.$router.push({ name: 'entry', params: { id: 'new' } });
+      },
     },
   };
 </script>
