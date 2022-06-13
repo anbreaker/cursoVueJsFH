@@ -12,9 +12,9 @@ exports[`PokemonPage Component Should match the snapshot, when pokemons is loade
 <div>
   <div>
     <h1>Who is this Pokemon?</h1>
-    <pokemonpicture-stub pokemonid="1"></pokemonpicture-stub>
-    <pokemonoptions-stub pokemons="[object Object],[object Object],[object Object],[object Object]"></pokemonoptions-stub>
-    <!---->
+    <pokemon-picture-stub pokemonid="1" showpokemon="false"></pokemon-picture-stub>
+    <pokemon-options-stub pokemons="[object Object],[object Object],[object Object],[object Object]"></pokemon-options-stub>
+    <!--v-if-->
   </div>
 </div>
 `;

@@ -1,38 +1,38 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils';
 
-import PokemonPicture from '@/components/PokemonPicture'
+import PokemonPicture from '@/components/PokemonPicture';
 
 describe('PokemonPicture Component', () => {
   test('Should match the snapshot', () => {
     const wrapper = shallowMount(PokemonPicture, {
       props: {
         pokemonId: 1,
-        showPokemon: true,
+        showPokemon: false,
       },
-    })
+    });
 
-    expect(wrapper.html()).toMatchSnapshot()
-  })
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 
-  test('Should show the hidden image and the pokemon 150', () => {
+  test('Should show the hidden image and the pokemon 100', () => {
     const wrapper = shallowMount(PokemonPicture, {
       props: {
         pokemonId: 100,
         showPokemon: false,
       },
-    })
+    });
 
-    const image1 = wrapper.find('img')
+    const [img1, img2] = wrapper.findAll('img');
 
-    expect(image1.exists()).toBeTruthy()
-    // TODO - check image 2 is hidden
+    expect(img1.exists()).toBeTruthy();
+    expect(img2).toBe(undefined);
 
-    expect(image1.classes('hidden-pokemon')).toBeTruthy()
+    expect(img1.classes('hidden-pokemon')).toBe(true);
 
-    expect(image1.attributes('src')).toBe(
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/undefined.svg'
-    )
-  })
+    expect(img1.attributes('src')).toBe(
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/100.svg'
+    );
+  });
 
   test('Should show the pokemon if showPokemon is set to true', () => {
     const wrapper = shallowMount(PokemonPicture, {
@@ -40,13 +40,13 @@ describe('PokemonPicture Component', () => {
         pokemonId: 100,
         showPokemon: true,
       },
-    })
+    });
 
-    const image1 = wrapper.find('#img1')
+    const img1 = wrapper.find('img');
 
-    expect(image1.exists()).toBeTruthy()
+    expect(img1.exists()).toBeTruthy();
 
-    expect(image1.classes('hidden-pokemon')).toBe(true)
-    expect(image1.classes('fade-in')).toBe(false)
-  })
-})
+    expect(img1.classes('hidden-pokemon')).toBe(false);
+    expect(img1.classes('fade-in')).toBe(true);
+  });
+});
