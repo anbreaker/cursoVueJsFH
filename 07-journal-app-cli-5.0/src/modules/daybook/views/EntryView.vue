@@ -6,11 +6,19 @@
       <span class="mx-2 fs-4 fw-light">{{ dayMonthYear.yearDay }}</span>
     </div>
     <div class="">
+      <input
+        v-show="false"
+        type="file"
+        @change="onSelectedImage"
+        ref="imageSelected"
+        accept="image/png, image/jpeg, image/jpg"
+      />
+
       <button v-if="entry.id" class="btn btn-danger mx-2" @click="onDeleteEntry">
         <i class="fa fa-trash-alt"></i>
         Delete
       </button>
-      <button class="btn btn-secondary text-white mx-2">
+      <button class="btn btn-secondary text-white mx-2" @click="onSelectImage">
         <i class="fa fa-upload"></i>
         Upload Image
       </button>
@@ -30,9 +38,16 @@
 
     <Fab icon="fa-save" @on:click="saveEntry" />
 
-    <img
+    <!-- <img
       class="img-thumbnail img-position"
       src="https://img.myloview.es/fotomurales/encinas-en-el-cerro-mingamorena-pelahustan-toledo-espana-europa-700-212590059.jpg"
+      alt="entry picture"
+    /> -->
+
+    <img
+      v-if="localImage"
+      class="img-thumbnail img-position"
+      :src="localImage"
       alt="entry picture"
     />
   </template>
@@ -60,6 +75,8 @@
     data() {
       return {
         entry: null,
+        localImage: null,
+        file: null,
       };
     },
 
@@ -139,6 +156,29 @@
 
           Swal.fire('Delete', '', 'success');
         }
+      },
+
+      onSelectedImage(event) {
+        const file = event.target.files[0];
+
+        if (!file) {
+          this.localImage = null;
+
+          this.file = null;
+
+          return;
+        }
+
+        this.file = file;
+
+        const fr = new FileReader();
+        fr.onload = () => (this.localImage = fr.result);
+
+        fr.readAsDataURL(file);
+      },
+
+      onSelectImage() {
+        this.$refs.imageSelected.click();
       },
     },
 
