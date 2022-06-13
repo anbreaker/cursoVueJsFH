@@ -55,13 +55,13 @@ describe('PokemonPage Component', () => {
       },
     })
 
-    const picture = wrapper.find('pokemonpicture-stub')
-    const options = wrapper.find('pokemonoptions-stub')
+    const picture = wrapper.find('pokemon-picture-stub')
+    const options = wrapper.find('pokemon-options-stub')
 
     expect(picture.exists()).toBeTruthy()
     expect(options.exists()).toBeTruthy()
 
-    expect(picture.attributes('pokemonid')).toBe('5')
+    expect(picture.attributes('pokemonid')).toBe('1')
     expect(options.attributes('pokemons')).toBeTruthy()
   })
 
