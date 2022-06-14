@@ -38,16 +38,17 @@
 
     <Fab icon="fa-save" @on:click="saveEntry" />
 
-    <!-- <img
+    <img
+      v-if="entry.picture && !localImage"
+      :src="entry.picture"
       class="img-thumbnail img-position"
-      src="https://img.myloview.es/fotomurales/encinas-en-el-cerro-mingamorena-pelahustan-toledo-espana-europa-700-212590059.jpg"
       alt="entry picture"
-    /> -->
+    />
 
     <img
       v-if="localImage"
-      class="img-thumbnail img-position"
       :src="localImage"
+      class="img-thumbnail img-position"
       alt="entry picture"
     />
   </template>
@@ -59,6 +60,7 @@
   import Swal from 'sweetalert2';
 
   import { getDayMonthYear } from '../helpers/getDayMonthYear';
+  import { uploadImageCloudinary } from '../helpers/uploadCloudinary';
 
   export default {
     props: {
@@ -98,6 +100,9 @@
       ...mapActions('journal', ['updateEntry', 'createEntry', 'deleteEntry']),
 
       loadEntry() {
+        this.localImage = null;
+        this.file = null;
+
         let entry;
 
         if (this.id === 'new') {
@@ -122,6 +127,10 @@
 
         Swal.showLoading();
 
+        const pictureUrl = await uploadImageCloudinary(this.file);
+
+        this.entry.picture = pictureUrl;
+
         if (this.entry.id) {
           await this.updateEntry(this.entry);
         } else {
@@ -130,6 +139,7 @@
           this.$router.push({ name: 'entry', params: { id: idNewEntry } });
         }
 
+        this.file = null;
         Swal.fire('Save', 'Entry saved', 'success');
       },
 
