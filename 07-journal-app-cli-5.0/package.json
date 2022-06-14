@@ -24,8 +24,10 @@
     "@vue/test-utils": "^2.0.0-0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
-    "vue3-jest": "^27.0.0-alpha.1",
+    "cloudinary": "^1.30.0",
     "sass": "^1.52.3",
-    "sass-loader": "^13.0.0"
+    "sass-loader": "^13.0.0",
+    "setimmediate": "^1.0.5",
+    "vue3-jest": "^27.0.0-alpha.1"
   }
 }
