@@ -63,6 +63,7 @@
   import { uploadImageCloudinary } from '../helpers/uploadCloudinary';
 
   export default {
+    name: 'EntryView',
     props: {
       id: {
         type: String,
