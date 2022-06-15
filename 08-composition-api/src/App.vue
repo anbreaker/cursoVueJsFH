@@ -12,9 +12,10 @@
   </nav>
 
   <router-view v-slot="{ Component, route }">
-    <keep-alive>
-      <component :is="Component" :key="route.name" />
-    </keep-alive>
+    <!-- TODO change keep-alive to production -->
+    <!-- <keep-alive> -->
+    <component :is="Component" :key="route.name" />
+    <!-- </keep-alive> -->
   </router-view>
 </template>
 
