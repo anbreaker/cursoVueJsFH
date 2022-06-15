@@ -8,7 +8,7 @@
     <button @click="changeIronman">Change ironman</button>
     <button @click="changeHulk">Change hulk</button>
 
-    <h3>Ironman is alive: {{ ironmanIsAlive }}</h3>
+    <!-- <h3>Ironman is alive: {{ ironmanIsAlive }}</h3> -->
     <h3>Hulk is alive: {{ hulkIsAlive }}</h3>
     <button @click="changeStatus">Change Status</button>
   </div>
@@ -23,7 +23,7 @@
       const ironman = ref({ name: 'Tony', age: 50 });
       const hulk = reactive({ name: 'Bruce', age: 50 });
 
-      const ironmanIsAlive = reactive(false);
+      // const ironmanIsAlive = reactive(false);
       const hulkIsAlive = ref(true);
 
       const changeStatus = () => {
@@ -36,7 +36,7 @@
         ironman,
         hulk,
 
-        ironmanIsAlive,
+        // ironmanIsAlive,
         hulkIsAlive,
 
         changeStatus,

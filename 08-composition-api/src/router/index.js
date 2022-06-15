@@ -20,6 +20,22 @@ const routes = [
     name: 'counter',
     component: () => import(/* webpackChunkName: "counter" */ '../views/Counter.vue'),
   },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import(/* webpackChunkName: "users" */ '../views/Users.vue'),
+  },
+  {
+    path: '/search-pokemon',
+    name: 'search-pokemon',
+    component: () =>
+      import(/* webpackChunkName: "search-pokemon" */ '../views/SearchPokemon.vue'),
+  },
+  {
+    path: '/pokemon/:id',
+    name: 'pokemon-id',
+    component: () => import(/* webpackChunkName: "pokemon" */ '../views/Pokemon.vue'),
+  },
 ];
 
 const router = createRouter({
