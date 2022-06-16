@@ -16,5 +16,6 @@ export const useTodos = () => {
     getTodoByTab: computed(() => store.getters['getTodoByTab'](currentTab.value)),
 
     toggleTodo: (id) => store.commit('toggleTodo', id),
+    createTodo: (text) => store.commit('createTodo', text),
   };
 };

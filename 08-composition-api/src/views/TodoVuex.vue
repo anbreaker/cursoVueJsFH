@@ -31,21 +31,71 @@
       </li>
     </ul>
   </div>
+
+  <button @click="openOrCloseModal">Create TODO</button>
+
+  <Modal v-if="isModalOpen" @on:close="openOrCloseModal">
+    <template v-slot:header>
+      <h1>New Task</h1>
+    </template>
+
+    <template v-slot:body>
+      <form
+        type="text"
+        @submit.prevent="
+          createTodo(newTodoText);
+          isModalOpen = false;
+        "
+      >
+        <input type="text" placeholder="New Task" v-model="newTodoText" />
+        <br />
+        <br />
+        <!-- TODO Clean Input!! -->
+        <button type="submit">Create Task</button>
+      </form>
+
+      <span class="close-modal" @click="openOrCloseModal">X</span>
+    </template>
+  </Modal>
 </template>
 
 <script>
+  import { ref } from 'vue';
+
   import { useTodos } from '@/composables/useTodos.js';
+  import Modal from '@/components/Modal.vue';
+  import { useModal } from '@/composables/useModal';
 
   export default {
-    setup() {
-      const { all, completed, currentTab, getTodoByTab, pending } = useTodos();
+    components: { Modal },
 
-      return {
+    setup() {
+      const {
         all,
         completed,
         currentTab,
+        createTodo,
         getTodoByTab,
         pending,
+        toggleTodo,
+      } = useTodos();
+
+      const { isModalOpen, openOrCloseModal } = useModal();
+
+      return {
+        isModalOpen,
+        openOrCloseModal,
+
+        all,
+        completed,
+        createTodo,
+        currentTab,
+        getTodoByTab,
+        pending,
+        toggleTodo,
+        createTodo,
+
+        newTodoText: ref(''),
       };
     },
   };
@@ -85,6 +135,19 @@
 
   .active {
     background-color: #326146;
+  }
+
+  .close-modal {
+    color: crimson;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    right: -157px;
+    top: -135px;
+  }
+
+  .close-modal:hover {
+    transform: scale(1.2);
   }
 
   .completed {

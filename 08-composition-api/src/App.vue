@@ -11,6 +11,8 @@
     <router-link :to="{ name: 'search-pokemon' }">Search</router-link>
     |
     <router-link :to="{ name: 'todo' }">Todo</router-link>
+    |
+    <router-link :to="{ name: 'slots' }">Slots</router-link>
   </nav>
 
   <router-view v-slot="{ Component, route }">
