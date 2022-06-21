@@ -9,7 +9,14 @@ export const useAuth = () => {
     return response;
   };
 
+  const loginUser = async (user) => {
+    const response = await store.dispatch('auth/loginUser', user);
+
+    return response;
+  };
+
   return {
     createUser,
+    loginUser,
   };
 };
