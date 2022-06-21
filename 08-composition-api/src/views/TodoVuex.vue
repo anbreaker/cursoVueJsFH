@@ -45,12 +45,13 @@
         @submit.prevent="
           createTodo(newTodoText);
           isModalOpen = false;
+          newTodoText = '';
         "
       >
         <input type="text" placeholder="New Task" v-model="newTodoText" />
         <br />
         <br />
-        <!-- TODO Clean Input!! -->
+
         <button type="submit">Create Task</button>
       </form>
 
