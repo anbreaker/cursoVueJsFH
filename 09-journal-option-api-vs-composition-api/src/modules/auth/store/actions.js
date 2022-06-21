@@ -47,3 +47,38 @@ export const loginUser = async ({ commit }, user) => {
     return { ok: false, message: error.response.data.error.message };
   }
 };
+
+export const checkAuthentication = async ({ commit }) => {
+  try {
+    const idToken = localStorage.getItem('idToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!idToken) {
+      commit('logout');
+
+      return { ok: false, message: 'No token found' };
+    }
+
+    const { data } = await authApi.post(':lookup', { idToken });
+
+    console.log(data);
+
+    const { displayName, email } = data.users[0];
+
+    // console.log(displayName, email);
+
+    const user = {
+      name: displayName,
+      email,
+    };
+
+    // Mutation loginUser
+    commit('loginUser', { user, idToken, refreshToken });
+
+    return { ok: true };
+  } catch (error) {
+    commit('logout');
+
+    return { ok: false, message: error.response.data.error.message };
+  }
+};
