@@ -8,13 +8,19 @@ const routes = [
         path: "typography",
         name: "typography",
         component: () =>
-          import(/* webpackChunkName: "Typography" */ "pages/Typography.vue"),
+          import(/* webpackChunkName: "typography" */ "pages/Typography.vue"),
       },
       {
         path: "flex",
         name: "flex",
         component: () =>
           import(/* webpackChunkName: "flex" */ "pages/Flex.vue"),
+      },
+      {
+        path: "dialogs",
+        name: "dialogs",
+        component: () =>
+          import(/* webpackChunkName: "dialogs" */ "pages/Dialogs.vue"),
       },
     ],
   },
