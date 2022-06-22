@@ -17,3 +17,6 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Doc Firebase
+See [Reference](https://firebase.google.com/docs/reference/rest/auth#section-create-email-password).

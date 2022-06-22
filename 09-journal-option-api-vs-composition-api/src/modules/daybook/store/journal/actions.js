@@ -1,4 +1,4 @@
-import { journalApi } from '@/api/journalApi';
+import journalApi from '@/api/journalApi';
 // export const myActions = async ({ commit })=>{
 
 // }

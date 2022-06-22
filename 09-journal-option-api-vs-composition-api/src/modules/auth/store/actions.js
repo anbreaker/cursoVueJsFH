@@ -36,7 +36,6 @@ export const loginUser = async ({ commit }, user) => {
 
     const { displayName, idToken, refreshToken } = data;
 
-    console.log({ data });
     user.name = displayName;
 
     // Mutation loginUser
