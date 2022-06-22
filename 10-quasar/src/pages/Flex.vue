@@ -6,45 +6,95 @@
       <div class="col bg-accent"></div>
     </div>
 
+    <!-- 12 slots -->
     <div class="row q-mb-md">
       <div class="col bg-primary"></div>
       <div class="col-6 bg-secondary"></div>
       <div class="col bg-accent"></div>
     </div>
 
-    <div class="row q-mb-md">
-      <div class="col bg-primary"></div>
-      <div class="col-6 bg-secondary"></div>
-      <div class="col-5 bg-accent"></div>
-    </div>
-
     <div class="row q-mb-md justify-center">
-      <div class="col-4 bg-primary"></div>
-      <div class="col-4 bg-secondary"></div>
+      <div class="col col-4 bg-primary"></div>
+      <div class="col col-4 bg-secondary"></div>
     </div>
 
     <div class="row q-mb-md justify-end">
-      <div class="col-4 bg-accent"></div>
-      <div class="col-4 bg-secondary"></div>
+      <div class="col col-4 bg-primary"></div>
+      <div class="col col-4 bg-secondary"></div>
     </div>
 
     <div class="row q-mb-md justify-between">
-      <div class="col-4 bg-primary"></div>
-      <div class="col-4 bg-accent"></div>
+      <div class="col col-4 bg-primary"></div>
+      <div class="col col-4 bg-secondary"></div>
     </div>
 
     <q-separator spaced />
 
     <div class="row q-mb-md justify-between">
-      <div class="col-12 col-sm-6 col-md-4 bg-primary"></div>
-      <div class="col-12 col-sm-6 col-md-4 bg-secondary"></div>
+      <div class="col-12 col-sm-5 col-md-4 bg-primary"></div>
+      <div class="col-12 col-sm-5 col-md-4 bg-secondary"></div>
+    </div>
+
+    <q-separator spaced />
+
+    <div class="row q-mb-md">
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div class="row q-mb-md justify-between">
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div class="row q-mb-md justify-end">
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div class="row q-mb-md justify-around">
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div class="column q-mb-md items-end bg-dark">
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div
+      class="column custom-height q-mb-md items-center justify-center bg-dark"
+    >
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div
+      class="column custom-height q-mb-md items-center justify-between bg-dark"
+    >
+      <div class="square-box bg-primary"></div>
+      <div class="square-box bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
+    </div>
+
+    <div
+      class="column custom-height q-mb-md items-center justify-between bg-dark"
+    >
+      <div class="square-box bg-primary"></div>
+      <div class="square-box self-end bg-secondary"></div>
+      <div class="square-box bg-accent"></div>
     </div>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-
 export default defineComponent({
   name: "Flex",
 });
@@ -56,5 +106,13 @@ export default defineComponent({
 .col-6,
 .col-12 {
   height: 3.125rem;
+}
+.square-box {
+  height: 3.125rem;
+  width: 3.125rem;
+}
+
+.custom-height {
+  height: 18.75rem;
 }
 </style>
