@@ -22,11 +22,20 @@ export const useAuth = () => {
     return response;
   };
 
+  const logout = () => {
+    store.commit('auth/logout');
+
+    // Clear inputs
+    store.commit('journal/clearEntries');
+  };
+
   return {
     checkAuthentication,
     createUser,
     loginUser,
+    logout,
 
     authStatus: computed(() => store.getters['auth/currentState']),
+    username: computed(() => store.getters['auth/username']),
   };
 };
