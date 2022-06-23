@@ -23,4 +23,10 @@ export const linksList = [
     icon: "las la-window-minimize",
     link: "dialogs",
   },
+  {
+    title: "Forms",
+    caption: "Forms, Inputs, Validations, Checks...",
+    icon: "lab la-wpforms",
+    link: "forms",
+  },
 ];

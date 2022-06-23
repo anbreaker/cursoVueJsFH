@@ -22,6 +22,12 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "dialogs" */ "pages/Dialogs.vue"),
       },
+      {
+        path: "forms",
+        name: "forms",
+        component: () =>
+          import(/* webpackChunkName: "forms" */ "pages/Forms.vue"),
+      },
     ],
   },
 
