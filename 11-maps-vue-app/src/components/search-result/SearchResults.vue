@@ -6,7 +6,7 @@
       <h5>Location Name</h5>
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
       <div align="right">
-        <button class="btn btn-outline-primary">Directions</button>
+        <button class="btn btn-sm btn-outline-primary">Directions</button>
       </div>
     </li>
   </ul>
@@ -15,5 +15,14 @@
 <style scoped>
   li {
     cursor: pointer;
+  }
+
+  h5 {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 0.8rem;
   }
 </style>

@@ -23,6 +23,8 @@ export const usePlacesStore = () => {
     ),
 
     // actions
+    searchPlacesByTerm: (query = '') =>
+      store.dispatch('places/searchPlacesByTerm', query),
 
     // mutations
   };
