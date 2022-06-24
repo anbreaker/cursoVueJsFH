@@ -3,6 +3,7 @@ import { useStore } from 'vuex';
 import Mapboxgl from 'mapbox-gl';
 
 import { StateInterface } from '@/store';
+import { Feature } from '@/interfaces/places';
 
 export const useMapStore = () => {
   const store = useStore<StateInterface>();
@@ -17,6 +18,7 @@ export const useMapStore = () => {
 
     // mutations
     setMap: (map: Mapboxgl.Map) => store.commit('map/setMap', map),
+    setPlacesMarkers: (places: Feature[]) => store.commit('map/setPlacesMarkers', places),
 
     // actions
   };
