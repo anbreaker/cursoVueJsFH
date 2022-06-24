@@ -17,6 +17,8 @@ const actions: ActionTree<MapState, StateInterface> = {
     );
 
     console.log(data.routes[0].geometry.coordinates);
+
+    commit('setRoutePolyline', data.routes[0].geometry.coordinates);
   },
 };
 
