@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref, watch } from 'vue';
 import Mapboxgl from 'mapbox-gl';
 
-import { usePlacesStore } from '@/composables';
+import { useMapStore, usePlacesStore } from '@/composables';
 
 export default defineComponent({
   name: 'MapView',
@@ -10,6 +10,8 @@ export default defineComponent({
     const mapElement = ref<HTMLDivElement>();
 
     const { userLocation, isUserLocationReady } = usePlacesStore();
+
+    const { setMap } = useMapStore();
 
     const initMap = async () => {
       if (!mapElement.value) throw new Error('Div Element does not exits');
@@ -37,6 +39,7 @@ export default defineComponent({
         .addTo(map);
 
       // TODO Set map in Vuex
+      setMap(map);
     };
 
     onMounted(() => {
