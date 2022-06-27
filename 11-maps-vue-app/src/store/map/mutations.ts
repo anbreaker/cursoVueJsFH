@@ -9,6 +9,18 @@ const mutation: MutationTree<MapState> = {
     state.map = map;
   },
 
+  setDistanceDuration(
+    state,
+    { distance, duration }: { distance: number; duration: number }
+  ) {
+    let kms = distance / 1000;
+    kms = Math.round(kms * 100);
+    kms /= 100;
+
+    state.distance = kms;
+    state.duration = Math.floor(duration / 60);
+  },
+
   setPlacesMarkers(state, places: Feature[]) {
     state.markers.forEach((marker) => marker.remove());
 
@@ -31,6 +43,16 @@ const mutation: MutationTree<MapState> = {
         .addTo(state.map);
 
       state.markers.push(customMarker);
+    }
+
+    // Clear polyline
+    if (state.map.getLayer('RouteString')) {
+      state.map.removeLayer('RouteString');
+
+      state.map.removeSource('RouteString');
+
+      state.distance = undefined;
+      state.duration = undefined;
     }
   },
 

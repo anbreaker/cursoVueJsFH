@@ -16,7 +16,11 @@ const actions: ActionTree<MapState, StateInterface> = {
       `${start.join(',')};${end.join(',')}`
     );
 
-    console.log(data.routes[0].geometry.coordinates);
+    // console.log(data.routes[0].geometry.coordinates);
+    commit('setDistanceDuration', {
+      distance: data.routes[0].distance,
+      duration: data.routes[0].duration,
+    });
 
     commit('setRoutePolyline', data.routes[0].geometry.coordinates);
   },
