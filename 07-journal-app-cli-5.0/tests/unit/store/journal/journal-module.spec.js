@@ -55,4 +55,31 @@ describe('Vuex - Testing Journal Module', () => {
       store.state.journal.entries.find((entry) => entry.id === updateEntry.id)
     ).toEqual(updateEntry);
   });
+
+  test('mutations: addEntry, deleteEntry', () => {
+    // Create Store
+    const store = createVuexStore(journalState);
+
+    const addEntry = {
+      id: 'ABC-123',
+      date: 1627077227978,
+      text: 'Hello Mock testing',
+    };
+
+    store.commit('journal/addEntry', addEntry);
+
+    expect(store.state.journal.entries.length).toBe(3);
+
+    expect(store.state.journal.entries.find((entry) => entry.id === addEntry.id)).toEqual(
+      addEntry
+    );
+
+    store.commit('journal/deleteEntry', addEntry.id);
+
+    expect(store.state.journal.entries.length).toBe(2);
+
+    expect(
+      store.state.journal.entries.find((entry) => entry.id === addEntry.id)
+    ).toBeFalsy();
+  });
 });
