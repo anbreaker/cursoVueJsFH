@@ -82,4 +82,20 @@ describe('Vuex - Testing Journal Module', () => {
       store.state.journal.entries.find((entry) => entry.id === addEntry.id)
     ).toBeFalsy();
   });
+
+  // Getters
+  test('getters: getEntriesByTerm, getEntryById', () => {
+    const store = createVuexStore(journalState);
+
+    const [entry1, entry2] = journalState.entries;
+
+    expect(store.getters['journal/getEntriesByTerm']('').length).toBe(2);
+    expect(store.getters['journal/getEntriesByTerm']('second').length).toBe(1);
+
+    expect(store.getters['journal/getEntriesByTerm']('second')).toEqual([entry2]);
+
+    expect(store.getters['journal/getEntryById']('-N4hKD2-n_7O-uv1REHY')).toEqual(entry1);
+  });
+
+  // Actions
 });
