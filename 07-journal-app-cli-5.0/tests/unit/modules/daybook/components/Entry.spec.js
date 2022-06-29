@@ -42,7 +42,5 @@ describe('testing Entry Component', () => {
     expect(wrapper.vm.day).toBe(23);
     expect(wrapper.vm.month).toBe('July');
     expect(wrapper.vm.yearDay).toBe('2021, Friday');
-
-    console.log(wrapper.vm.day, wrapper.vm.month, wrapper.vm.yearDay);
   });
 });
