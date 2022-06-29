@@ -41,9 +41,10 @@ export const updateEntry = async ({ commit }, entry) => {
   const dataToUpdate = { date, picture, text };
 
   const response = await journalApi.put(`/entries/${entry.id}.json`, dataToUpdate);
-  console.log(response);
 
-  commit('updateEntry', { ...entry });
+  dataToUpdate.id = entry.id;
+
+  commit('updateEntry', { ...dataToUpdate });
 };
 
 export const deleteEntry = async ({ commit }, id) => {
