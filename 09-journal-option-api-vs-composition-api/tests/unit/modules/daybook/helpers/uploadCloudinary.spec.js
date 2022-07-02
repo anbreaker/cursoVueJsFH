@@ -13,7 +13,7 @@ cloudinary.config({
 describe('uploadImageCloudinary testing', () => {
   test('must load a file and return a url', async (done) => {
     const { data } = await axios.get(
-      'https://res.cloudinary.com/dlayuetwi/image/upload/v1646726470/ckpkaupcbh2zqlmsikqu.jpg',
+      'https://res.cloudinary.com/dlayuetwi/image/upload/v1655396629/curso-vue-fh/e98rl5rxlozqaxggbgjv.png',
       { responseType: 'arraybuffer' }
     );
 
