@@ -14,8 +14,17 @@ const createVuexStore = (initialState) =>
   });
 
 describe('Vuex - Testing Journal Module', () => {
-  //Basics
+  beforeAll(async () => {
+    const { data } = await authApi.post(':signInWithPassword', {
+      email: 'test@test.com',
+      password: '123456',
+      returnSecureToken: true,
+    });
 
+    localStorage.setItem('idToken', data.idToken);
+  });
+
+  //Basics
   test('Init State should be initialized', () => {
     const store = createVuexStore(journalState);
 
