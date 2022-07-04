@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { createVuexStore } from '../../../../../tests/mock-data/mock-store';
 
 describe('Vuex, test AuthModule', () => {
@@ -74,5 +76,64 @@ describe('Vuex, test AuthModule', () => {
 
     expect(store.getters['auth/currentState']).toBe('authenticated');
     expect(store.getters['auth/username']).toBe('anbreaker');
+  });
+
+  // Actions
+  test('Actions: createUser - Error User Exists', async () => {
+    const store = createVuexStore({
+      status: 'not-authenticated', // 'authenticated', 'not-authenticated', 'authenticating'
+      user: null,
+      idToken: null,
+      refreshToken: null,
+    });
+
+    const newUser = { name: 'anbreaker', email: 'test@test.com', password: '123456' };
+
+    const response = await store.dispatch('auth/createUser', newUser);
+
+    expect(response).toEqual({ ok: false, message: 'EMAIL_EXISTS' });
+
+    const { status, user, idToken, refreshToken } = store.state.auth;
+
+    expect(status).toBe('not-authenticated');
+    expect(user).toBe(null);
+    expect(idToken).toBeFalsy();
+    expect(refreshToken).toBeFalsy();
+  });
+
+  test('Actions: createUser - signUser - Create New User', async () => {
+    const store = createVuexStore({
+      status: 'not-authenticated', // 'authenticated', 'not-authenticated', 'authenticating'
+      user: null,
+      idToken: null,
+      refreshToken: null,
+    });
+
+    const newUser = { name: 'anbreaker', email: 'test1@test.com', password: '123456' };
+
+    // SignIn
+    await store.dispatch('auth/loginUser', newUser);
+
+    const { idToken } = store.state.auth;
+
+    // delete User for test
+    const deleteResponse = axios.post(
+      `https://identitytoolkit.googleapis.com/v1/accounts:delete?key=${process.env.VUE_APP_FIREBASE_APIKEY}`,
+      {
+        idToken,
+      }
+    );
+
+    // Create User
+    const response = await store.dispatch('auth/createUser', newUser);
+
+    expect(response).toEqual({ ok: true });
+
+    const { status, user, idToken: token, refreshToken } = store.state.auth;
+
+    expect(status).toBe('authenticated');
+    expect(newUser).toEqual(newUser);
+    expect(typeof token).toBe('string');
+    expect(typeof refreshToken).toBe('string');
   });
 });
