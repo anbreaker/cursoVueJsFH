@@ -129,11 +129,62 @@ describe('Vuex, test AuthModule', () => {
 
     expect(response).toEqual({ ok: true });
 
-    const { status, user, idToken: token, refreshToken } = store.state.auth;
+    const { status, idToken: token, refreshToken } = store.state.auth;
 
     expect(status).toBe('authenticated');
     expect(newUser).toEqual(newUser);
     expect(typeof token).toBe('string');
     expect(typeof refreshToken).toBe('string');
+  });
+
+  test('Actions: checkAuthentication - Valid', async () => {
+    const store = createVuexStore({
+      status: 'not-authenticated', // 'authenticated', 'not-authenticated', 'authenticating'
+      user: null,
+      idToken: null,
+      refreshToken: null,
+    });
+
+    // Login User
+    const loginResponse = await store.dispatch('auth/loginUser', {
+      email: 'test@test.com',
+      password: '123456',
+    });
+
+    const { idToken } = store.state.auth;
+
+    store.commit('auth/logout');
+
+    localStorage.setItem('idToken', idToken);
+
+    const checkResponse = await store.dispatch('auth/checkAuthentication');
+
+    const { status, user, idToken: token, refreshToken } = store.state.auth;
+
+    expect(checkResponse).toEqual({ ok: true });
+    expect(status).toBe('authenticated');
+    expect(user).toMatchObject({
+      email: 'test@test.com',
+      name: 'anbreaker',
+    });
+    expect(typeof token).toBe('string');
+  });
+  test('Actions: checkAuthentication - Authentication Negative', async () => {
+    const store = createVuexStore({
+      status: 'not-authenticated', // 'authenticated', 'not-authenticated', 'authenticating'
+      user: null,
+      idToken: null,
+      refreshToken: null,
+    });
+
+    localStorage.removeItem('idToken');
+    const checkResponse = await store.dispatch('auth/checkAuthentication');
+
+    expect(checkResponse).toEqual({ ok: false, message: 'No token found' });
+    expect(store.state.auth.status).toBe('not-authenticated');
+
+    localStorage.setItem('idToken', 'ABC-123');
+    const checkResponseInvalid = await store.dispatch('auth/checkAuthentication');
+    expect(checkResponseInvalid).toEqual({ ok: false, message: 'INVALID_ID_TOKEN' });
   });
 });
