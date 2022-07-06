@@ -31,7 +31,7 @@
       return {
         username,
         onLogout: () => {
-          router.push({ name: 'login' });
+          // router.push({ name: 'login' });
 
           logout();
         },
