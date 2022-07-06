@@ -105,7 +105,7 @@ describe('testin useAuth Composoble', () => {
     const { authStatus, username } = useAuth();
 
     console.log(authStatus.value, username.value);
-    // expect(authStatus.value).toBe('authenticated');
-    // expect(username.value).toBe('anbreaker');
+    expect(authStatus.value).toBe('authenticated');
+    expect(username.value).toBe('anbreaker');
   });
 });
