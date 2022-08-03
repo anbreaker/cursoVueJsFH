@@ -34,7 +34,9 @@ describe('Navbar Component tests', () => {
 
     await wrapper.find('button').trigger('click');
 
-    // TODO to be continued...
+    // TODO to be continued use this repo class 295 cursoVueFH:
+    // https://github.com/posva/vue-router-mock
+
     expect(wrapper.router.push).toHaveBeenCalledWith();
 
     expect(store.state.auth).toEqual({

@@ -2,13 +2,7 @@
   <span class="login100-form-title p-b-41">Enter App</span>
   <form class="login100-form validate-form p-b-33 p-t-5" @submit.prevent="onSubmit">
     <div class="wrap-input100 validate-input" data-validate="Enter email">
-      <input
-        v-model="userForm.email"
-        class="input100"
-        type="email"
-        placeholder="Email"
-        required
-      />
+      <input v-model="userForm.email" class="input100" type="email" placeholder="Email" required />
       <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
 
@@ -47,19 +41,27 @@
       const { loginUser } = useAuth();
 
       const userForm = ref({
-        email: 'test@test.com',
-        password: '123456',
+        // email: 'test@test.com',
+        // password: '123456',
+        email: '',
+        password: '',
       });
 
       return {
         userForm,
 
         onSubmit: async () => {
-          const { ok, message } = await loginUser(userForm.value);
+          try {
+            const { ok, message } = await loginUser(userForm.value);
 
-          if (!ok) return Swal.fire('Error', message, 'error');
+            console.log({ ok, message });
 
-          router.push({ name: 'no-entry' });
+            if (!ok) return Swal.fire('Error', message, 'error');
+
+            router.push({ name: 'no-entry' });
+          } catch (error) {
+            console.log(error);
+          }
         },
       };
     },
