@@ -2,12 +2,17 @@
   <q-page class="q-ma-md">
     <span class="text-h3">Search Component</span>
     <q-separator spaced />
-    <p>algo</p>
+
+    <h3>Filter</h3>
+
     <SearchComponent
       :rows="tableEnquestesWithoutService"
       @filteredResult="filteredResult"
     />
-    <div class="row justify-center"></div>
+
+    <div class="row justify-center">
+      <p>{{ tableEnquestesForFilterService }}</p>
+    </div>
   </q-page>
 </template>
 
@@ -39,6 +44,7 @@ export default defineComponent({
     return {
       filteredResult,
       tableEnquestesWithoutService,
+      tableEnquestesForFilterService,
     };
   },
 });

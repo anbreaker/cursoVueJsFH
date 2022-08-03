@@ -31,7 +31,7 @@ export const linksList = [
   },
   {
     title: "Search",
-    caption: "Search, Inputs, Validations, Checks...",
+    caption: "Search, by filters...",
     icon: "las la-search",
     link: "search",
   },
