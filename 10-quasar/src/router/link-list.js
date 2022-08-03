@@ -29,4 +29,10 @@ export const linksList = [
     icon: "lab la-wpforms",
     link: "forms",
   },
+  {
+    title: "Search",
+    caption: "Search, Inputs, Validations, Checks...",
+    icon: "las la-search",
+    link: "search",
+  },
 ];

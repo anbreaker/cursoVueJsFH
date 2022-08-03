@@ -28,6 +28,12 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "forms" */ "pages/Forms.vue"),
       },
+      {
+        path: "search",
+        name: "search",
+        component: () =>
+          import(/* webpackChunkName: "search" */ "pages/SearchPage.vue"),
+      },
     ],
   },
 
